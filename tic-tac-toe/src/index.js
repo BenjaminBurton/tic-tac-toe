@@ -35,21 +35,18 @@ class Board extends React.Component {
       />
     );
   }
-
-  
-  return (
-    <div className="game">
-      <div className="game-board">
-        <Board
-          squares={current.squares}
-          onClick={(i) => this.handleClick(i)}
-        />
-    <div className="game-info">
-      <div>{status}</div>
-      </div>
-    </div>
-  )
 }
+//   return (
+//     <div className="game">
+//       <div className="game-board">
+//         <Board squares={current.squares} onClick={(i) => this.handleClick(i)}
+//         />
+//     <div className="game-info">
+//       <div>{status}</div>
+//       <div>{/* TODO */}</div>
+//     </div>
+//   )
+// }
       
 class Game extends React.Component {
   constructor(props) {
@@ -77,6 +74,7 @@ class Game extends React.Component {
       history: history.concat([{
       squares:squares,
     }]),
+    stepNumber: history.length,
     xIsNext: !this.state.xIsNext,
   })
 }
@@ -90,7 +88,7 @@ class Game extends React.Component {
 
   render() {
     const history = this.state.history;
-    const current = history[history.length - 1];
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
@@ -116,7 +114,8 @@ class Game extends React.Component {
         <div className="game-board">
           <Board 
           squares={current.squares}
-          onClick={(i) => this.handleClick(i)} />
+          onClick={(i) => this.handleClick(i)} 
+          />
         </div>
         <div className="game-info">
           <div>{status}</div>
